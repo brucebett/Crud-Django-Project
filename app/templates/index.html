@@ -59,8 +59,8 @@
         <td>{{ x.email }}</td>
         <td>{{ x.age }}</td>
         <td>{{ x.gender }}</td>
-        <td><button class="btn btn-danger">EDIT</button></td>
-        <td><button class="btn btn-success">DELETE</button></td>
+        <td><a href="/edit/{{ x.id }}" type="button" class="btn btn-success">Edit</a></td>
+        <td><a href="/delete/{{ x.id }}" type="button" class="btn btn-danger">Delete</a></td>
         
         </tr>
     {% endfor %}
