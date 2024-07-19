@@ -6,6 +6,7 @@ class Students(models.Model):
     name = models.CharField(max_length=20)
     email = models.EmailField()
     age = models.IntegerField()
+    location = models.CharField(max_length=30)
     gender = models.CharField(max_length=10)
 
     def __str__(self):

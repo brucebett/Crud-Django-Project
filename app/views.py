@@ -1,6 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from app.models import Students
+from app.serializers import StudentSerializer
 
 
 # Create your views here.
@@ -15,8 +17,9 @@ def save(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         age = request.POST.get('age')
+        location = request.POST.get('location')
         gender = request.POST.get('gender')
-        form = Students(name=name, email=email, age=age, gender=gender)
+        form = Students(name=name, email=email, age=age, location=location, gender=gender)
         form.save()
         return redirect("/")
     return render(request, 'index.html')
@@ -27,12 +30,14 @@ def editStudent(request, id):
         name = request.POST.get('name')
         email = request.POST.get('email')
         age = request.POST.get('age')
+        location = request.POST.get('location')
         gender = request.POST.get('gender')
 
         editForm = Students.objects.get(id=id)
         editForm.name = name
         editForm.email = email
         editForm.age = age
+        editForm.location = location
         editForm.gender = gender
         editForm.save()
         return redirect("/")
@@ -45,6 +50,13 @@ def deleteStudent(request,id):
     student = Students.objects.get(id=id)
     student.delete()
     return redirect("/")
+
+
+def student_list(request):
+    student = Students.objects.all()
+    serialize = StudentSerializer(student, many=True)
+    return JsonResponse(serialize.data, safe=False)
+
 
 
 
