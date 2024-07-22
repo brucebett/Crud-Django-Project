@@ -24,6 +24,9 @@ urlpatterns = [
     path('save', views.save, name='save'),
     path('edit/<id>', views.editStudent, name='editStudent'),
     path('delete/<id>', views.deleteStudent, name='deleteStudent'),
-    path('students/', views.student_list, name='student_list')
+    path('students/', views.student_list, name='student_list'),
+    path('daraja/stk_push', views.stk_push_callback, name='stk_push_callback'),
+    path('mpesaapi/', views.mpesaapi, name='mpesaapi')
+
 
 ]

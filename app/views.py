@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 
 from app.models import Students
@@ -46,7 +46,7 @@ def editStudent(request, id):
     return render(request, "edit.html", context)
 
 
-def deleteStudent(request,id):
+def deleteStudent(request, id):
     student = Students.objects.get(id=id)
     student.delete()
     return redirect("/")
@@ -58,28 +58,17 @@ def student_list(request):
     return JsonResponse(serialize.data, safe=False)
 
 
+def mpesaapi(request):
+    cl = MpesaClient()
+    phone_number = '0115119091'
+    amount = 1
+    account_reference = 'reference'
+    transaction_desc = 'Description'
+    callback_url = 'https://darajambili.herokuapp.com/express-payment'
+    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    return HttpResponse(response)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def stk_push_callback(request):
+    data = request.body
+    return HttpResponse('STK PUSH has been successfully')
